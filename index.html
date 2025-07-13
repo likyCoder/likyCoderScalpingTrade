@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF‑8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>likyCoder 🚀 Pro Trading Checklist | Trend Zone Strategy</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    /* Modern gradient + particle background */
+    :root {
+      --primary: #7c3aed;
+      --secondary: #c084fc;
+      --accent: #f5f3ff;
+      --success: #22c55e;
+    }
+    
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(145deg, #1e0a3c, #3b0764, #5b21b6);
+      color: var(--accent);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    /* Particle background animation */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      opacity: 0.3;
+    }
+    
+    /* Header with floating animation */
+    h1 {
+      text-align: center;
+      margin: 0;
+      padding: 30px 20px 20px;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-shadow:
+        0 0 15px rgba(124, 58, 237, 0.7),
+        0 0 30px rgba(192, 132, 252, 0.5);
+      position: relative;
+      z-index: 10;
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    /* Container for content */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+      z-index: 10;
+    }
+    
+    /* Trading image carousel */
+    .image-carousel {
+      width: 100%;
+      height: 350px;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(92, 33, 182, 0.5);
+      margin-bottom: 30px;
+      perspective: 1000px;
+    }
+    
+    .carousel-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+    }
+    
+    .carousel-item {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: all 1s ease;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .carousel-item.active {
+      opacity: 1;
+      transform: translateZ(0);
+    }
+    
+    .carousel-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+      background: linear-gradient(to top, rgba(28, 10, 60, 0.9), transparent);
+      color: white;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    
+    /* Description, Note */
+    .description, .note {
+      background: rgba(123, 59, 237, 0.15);
+      border-left: 4px solid var(--primary);
+      border-radius: 12px;
+      margin-bottom: 25px;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 5px 15px rgba(92, 33, 182, 0.2);
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeSlideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    
+    .note {
+      border-left-color: var(--secondary);
+      background: rgba(192, 132, 252, 0.1);
+      animation-delay: 0.3s;
+    }
+    
+    @keyframes fadeSlideUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Steps with advanced hover effects */
+    .step {
+      background: rgba(255, 255, 255, 0.08);
+      border-left: 4px solid var(--secondary);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      padding: 20px 25px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 5px 15px rgba(92, 33, 182, 0.2);
+      transform: translateY(30px);
+      opacity: 0;
+      animation: fadeSlideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: calc(var(--i) * 0.15s);
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .step::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(192, 132, 252, 0.1), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    
+    .step:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(192, 132, 252, 0.3);
+    }
+    
+    .step:hover::before {
+      transform: translateX(100%);
+    }
+    
+    .step.done {
+      border-left-color: var(--success);
+      background: rgba(34, 197, 94, 0.1);
+    }
+    
+    .step input {
+      margin-right: 15px;
+      width: 22px;
+      height: 22px;
+      accent-color: var(--secondary);
+      cursor: pointer;
+      transform: scale(1);
+      transition: transform 0.3s ease;
+    }
+    
+    .step input:hover {
+      transform: scale(1.1);
+    }
+    
+    .step input:checked {
+      box-shadow: 0 0 0 4px rgba(192, 132, 252, 0.3);
+    }
+    
+    .step label {
+      display: flex;
+      align-items: flex-start;
+      cursor: pointer;
+    }
+    
+    .step-content {
+      flex: 1;
+    }
+    
+    .step-number {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 28px;
+      margin-right: 12px;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+    
+    /* Reset button with pulse animation */
+    .btn-container {
+      text-align: center;
+      margin: 40px 0;
+    }
+    
+    #resetBtn {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 5px 25px rgba(124, 58, 237, 0.5);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    #resetBtn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(124, 58, 237, 0.7);
+    }
+    
+    #resetBtn:active {
+      transform: translateY(1px);
+    }
+    
+    #resetBtn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+    
+    #resetBtn:hover::after {
+      opacity: 1;
+    }
+    
+    /* Progress indicator */
+    .progress-container {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      margin: 30px 0;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    #progressBar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 4px;
+      transition: width 0.5s ease;
+      position: relative;
+    }
+    
+    #progressBar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: progressShine 2s infinite;
+    }
+    
+    @keyframes progressShine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    
+    .progress-text {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: var(--accent);
+      opacity: 0.8;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+        padding: 20px 15px 15px;
+      }
+      
+      .step {
+        padding: 15px 20px;
+      }
+      
+      .image-carousel {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particles background -->
+  <div id="particles-js"></div>
+  
+  <div class="container">
+    <h1 class="animate__animated animate__fadeInDown">likyCoder🚀 Pro Trading Checklist</h1>
+    
+    <!-- Trading image carousel -->
+    <div class="image-carousel animate__animated animate__fadeIn">
+      <div class="carousel-inner">
+        <div class="carousel-item active" style="background-image: url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80')">
+          <div class="carousel-caption">Trend Analysis on Higher Timeframes</div>
+        </div>
+        <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80')">
+          <div class="carousel-caption">Key Support & Resistance Zones</div>
+        </div>
+        <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80')">
+          <div class="carousel-caption">Price Action Confirmation Patterns</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="description" style="--i:0">
+      <strong>🎯 High-Probability Intraday Strategy</strong><br>
+      Systematic approach focusing on trend alignment, key zones, and clear entry confirmations for consistent trading results.
+    </div>
+    
+    <div class="note" style="--i:1">
+      <strong>⏰ Optimal Trading Times:</strong> London session (8AM-12PM GMT) or New York session (1PM-5PM GMT). Focus on high liquidity periods.
+    </div>
+    
+    <!-- Progress indicator -->
+    <div class="progress-container">
+      <div id="progressBar"></div>
+    </div>
+    <div class="progress-text"><span id="progressPercent">0</span>% Complete</div>
+    
+    <!-- Checklist Steps -->
+    <div class="step" style="--i:2">
+      <label>
+        <input type="checkbox" onclick="markDone(this)">
+        <div class="step-content">
+          <div class="step-number">1</div>
+          <strong>Determine Market Trend (H1/H4)</strong><br>
+          Use 200 EMA: Price above = uptrend, below = downtrend. Only trade in the direction of the prevailing trend. Confirm with higher timeframe structure.
+        </div>
+      </label>
+    </div>
+    
+    <div class="step" style="--i:3">
+      <label>
+        <input type="checkbox" onclick="markDone(this)">
+        <div class="step-content">
+          <div class="step-number">2</div>
+          <strong>Identify Key Supply/Demand Zones</strong><br>
+          Mark recent swing highs/lows, consolidation areas, and psychological levels from H1 timeframe. Highlight zones with at least 3 touches for stronger validity.
+        </div>
+      </label>
+    </div>
+    
+    <div class="step" style="--i:4">
+      <label>
+        <input type="checkbox" onclick="markDone(this)">
+        <div class="step-content">
+          <div class="step-number">3</div>
+          <strong>Wait for Price to Test Key Zone</strong><br>
+          Switch to M15/M5 timeframe. No zone = no trade. Be patient for price to approach your pre-marked areas.
+        </div>
+      </label>
+    </div>
+    
+    <div class="step" style="--i:5">
+      <label>
+        <input type="checkbox" onclick="markDone(this)">
+        <div class="step-content">
+          <div class="step-number">4</div>
+          <strong>Look for Price Action Confirmation</strong><br>
+          Watch for rejection patterns: engulfing, pin bars, inside bars, or fakeouts at the zone. Strong volume increase adds confirmation.
+        </div>
+      </label>
+    </div>
+    
+    <div class="step" style="--i:6">
+      <label>
+        <input type="checkbox" onclick="markDone(this)">
+        <div class="step-content">
+          <div class="step-number">5</div>
+          <strong>Execute Trade with Precision</strong><br>
+          Enter at candle close beyond pattern. SL: 1-2 pips beyond recent swing or pattern extreme. TP: Minimum 1:2 RR, scale out partials at 1R.
+        </div>
+      </label>
+    </div>
+    
+    <div class="step" style="--i:7">
+      <label>
+        <input type="checkbox" onclick="markDone(this)">
+        <div class="step-content">
+          <div class="step-number">6</div>
+          <strong>Professional Trade Management</strong><br>
+          Trail SL using recent swing points or moving average. Move to breakeven after 1R profit. Adjust if market structure changes.
+        </div>
+      </label>
+    </div>
+    
+    <div class="step" style="--i:8">
+      <label>
+        <input type="checkbox" onclick="markDone(this)">
+        <div class="step-content">
+          <div class="step-number">7</div>
+          <strong>Journal & Post-Analysis</strong><br>
+          Record: setup quality (1-5), entry timing, emotional state, trade management. Review weekly for pattern recognition.
+        </div>
+      </label>
+    </div>
+    
+    <div class="btn-container">
+      <button id="resetBtn" onclick="resetAll()">
+        <span class="animate__animated animate__infinite animate__slower animate__pulse">↻</span> Reset Checklist
+      </button>
+    </div>
+  </div>
+  <div class="final">
+    @likyCoder
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    // Initialize particles.js
+    document.addEventListener('DOMContentLoaded', function() {
+      particlesJS('particles-js', {
+        "particles": {
+          "number": {
+            "value": 80,
+            "density": {
+              "enable": true,
+              "value_area": 800
+            }
+          },
+          "color": {
+            "value": "#c084fc"
+          },
+          "shape": {
+            "type": "circle",
+            "stroke": {
+              "width": 0,
+              "color": "#000000"
+            },
+            "polygon": {
+              "nb_sides": 5
+            }
+          },
+          "opacity": {
+            "value": 0.5,
+            "random": true,
+            "anim": {
+              "enable": true,
+              "speed": 1,
+              "opacity_min": 0.1,
+              "sync": false
+            }
+          },
+          "size": {
+            "value": 3,
+            "random": true,
+            "anim": {
+              "enable": true,
+              "speed": 2,
+              "size_min": 0.1,
+              "sync": false
+            }
+          },
+          "line_linked": {
+            "enable": true,
+            "distance": 150,
+            "color": "#7c3aed",
+            "opacity": 0.2,
+            "width": 1
+          },
+          "move": {
+            "enable": true,
+            "speed": 1,
+            "direction": "none",
+            "random": true,
+            "straight": false,
+            "out_mode": "out",
+            "bounce": false,
+            "attract": {
+              "enable": true,
+              "rotateX": 600,
+              "rotateY": 1200
+            }
+          }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": {
+            "onhover": {
+              "enable": true,
+              "mode": "grab"
+            },
+            "onclick": {
+              "enable": true,
+              "mode": "push"
+            },
+            "resize": true
+          },
+          "modes": {
+            "grab": {
+              "distance": 140,
+              "line_linked": {
+                "opacity": 0.5
+              }
+            },
+            "push": {
+              "particles_nb": 4
+            }
+          }
+        },
+        "retina_detect": true
+      });
+      
+      // Initialize image carousel
+      let currentSlide = 0;
+      const slides = document.querySelectorAll('.carousel-item');
+      
+      function showSlide(n) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+      }
+      
+      function nextSlide() {
+        showSlide(currentSlide + 1);
+      }
+      
+      // Auto-rotate carousel every 5 seconds
+      setInterval(nextSlide, 5000);
+      
+      // Update progress bar
+      updateProgress();
+    });
+    
+    // Checklist functionality
+    function markDone(cb) {
+      const step = cb.closest('.step');
+      step.classList.toggle('done', cb.checked);
+      updateProgress();
+      
+      // Add animation when checked
+      if (cb.checked) {
+        step.classList.add('animate__animated', 'animate__pulse');
+        setTimeout(() => {
+          step.classList.remove('animate__animated', 'animate__pulse');
+        }, 1000);
+      }
+    }
+    
+    function resetAll() {
+      document.querySelectorAll('.step input').forEach(cb => {
+        cb.checked = false;
+        cb.closest('.step').classList.remove('done');
+      });
+      updateProgress();
+      
+      // Add reset animation
+      const btn = document.getElementById('resetBtn');
+      btn.classList.add('animate__animated', 'animate__rubberBand');
+      setTimeout(() => {
+        btn.classList.remove('animate__animated', 'animate__rubberBand');
+      }, 1000);
+    }
+    
+    function updateProgress() {
+      const checkboxes = document.querySelectorAll('.step input');
+      const checked = document.querySelectorAll('.step input:checked').length;
+      const percent = Math.round((checked / checkboxes.length) * 100);
+      
+      document.getElementById('progressBar').style.width = percent + '%';
+      document.getElementById('progressPercent').textContent = percent;
+    }
+  </script>
+</body>
+</html>
